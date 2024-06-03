@@ -1,3 +1,4 @@
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
@@ -22,8 +23,8 @@ app.post('/shopify-webhook', (req, res) => {
 });
 
 const sendToFreshmarketer = (orderData) => {
-    const freshmarketerUrl = 'https://your-freshmarketer-instance/api-endpoint';
-    const apiKey = 'your-freshmarketer-api-key';
+    const freshmarketerUrl = 'https://eshipz-713335337469684609.myfreshworks.com/crm/sales';
+    const apiKey = 'JMNI1QCCdOcpJYIjbkqnqg';
 
     const data = {
         email: orderData.email,
@@ -34,13 +35,13 @@ const sendToFreshmarketer = (orderData) => {
 
     axios.post(freshmarketerUrl, data, {
         headers: {
-            'Authorization': `Bearer ${apiKey}`,
+            'Authorization': `Token token=${apiKey}`,
             'Content-Type': 'application/json'
         }
     }).then(response => {
         console.log('Data sent to Freshmarketer:', response.data);
     }).catch(error => {
-        console.error('Error sending data to Freshmarketer:', error);
+        console.error('Error sending data to Freshmarketer:', error.response ? error.response.data : error.message);
     });
 };
 
